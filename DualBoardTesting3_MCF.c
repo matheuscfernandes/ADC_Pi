@@ -6,11 +6,11 @@
  *
  * To compile: sudo gcc adconTesting2.c -o adcTest3 -lbcm2835 -lwiringPi -lm -g
  * /
- 
+
 /*
              define from bcm2835.h                       define from Board DVK511
                  3.3V | | 5V               ->                 3.3V | | 5V
-    RPI_V2_GPIO_P1_03 | | 5V               ->                  SDA | | 5V 
+    RPI_V2_GPIO_P1_03 | | 5V               ->                  SDA | | 5V
     RPI_V2_GPIO_P1_05 | | GND              ->                  SCL | | GND
        RPI_GPIO_P1_07 | | RPI_GPIO_P1_08   ->                  IO7 | | TX
                   GND | | RPI_GPIO_P1_10   ->                  GND | | RX
@@ -34,7 +34,7 @@ RPI_V2_GPIO_P1_13->RPI_GPIO_P1_13
 
 #include <wiringPi.h>
 
-#include <bcm2835.h>  
+#include <bcm2835.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -51,7 +51,7 @@ RPI_V2_GPIO_P1_13->RPI_GPIO_P1_13
 
 
 
-//CS      -----   SPICS  
+//CS      -----   SPICS
 //DIN     -----   MOSI
 //DOUT  -----   MISO
 //SCLK   -----   SCLK
@@ -86,8 +86,8 @@ RPI_V2_GPIO_P1_13->RPI_GPIO_P1_13
 
 /* Unsigned integer types  */
 #define uint8_t unsigned char
-#define uint16_t unsigned short    
-#define uint32_t unsigned long     
+#define uint16_t unsigned short
+#define uint32_t unsigned long
 
 /* GLOBAL VARIABLES */
 	volatile int drdy_count;
@@ -98,7 +98,7 @@ RPI_V2_GPIO_P1_13->RPI_GPIO_P1_13
 //typedef enum {FALSE = 0, TRUE = !FALSE} bool;
 
 
-/* gain channelî */
+/* gain channelï¿½ */
 typedef enum
 {
 	ADS1256_GAIN_1			= (0),	/* GAIN   1 */
@@ -111,7 +111,7 @@ typedef enum
 }ADS1256_GAIN_E;
 
 /* Sampling speed choice*/
-/* 
+/*
 	11110000 = 30,000SPS (default)
 	11100000 = 15,000SPS
 	11010000 = 7,500SPS
@@ -159,12 +159,12 @@ typedef struct
 	ADS1256_DRATE_E DataRate;	/* DATA output  speed*/
 	int32_t AdcNow[8];			/* ADC  Conversion value */
 	uint8_t Channel;			/* The current channel*/
-	uint8_t ScanMode;	/*Scanning mode,   0  Single-ended input  8 channel£¬ 1 Differential input  4 channel*/
+	uint8_t ScanMode;	/*Scanning mode,   0  Single-ended input  8 channelï¿½ï¿½ 1 Differential input  4 channel*/
 }ADS1256_VAR_T;
 
 
 
-/*Register definition£º Table 23. Register Map --- ADS1256 datasheet Page 30*/
+/*Register definitionï¿½ï¿½ Table 23. Register Map --- ADS1256 datasheet Page 30*/
 enum
 {
 	/*Register address, followed by reset the default values */
@@ -182,7 +182,7 @@ enum
 	REG_FSC2   = 10, // xxH
 };
 
-/* Command definition£º TTable 24. Command Definitions --- ADS1256 datasheet Page 34 */
+/* Command definitionï¿½ï¿½ TTable 24. Command Definitions --- ADS1256 datasheet Page 34 */
 enum
 {
 	CMD_WAKEUP  = 0x00,	// Completes SYNC and Exits Standby Mode 0000  0000 (00h)
@@ -260,7 +260,7 @@ void  bsp_DelayUS(uint64_t micros)
 /*
 *********************************************************************************************************
 *	name: bsp_InitADS1256
-*	function: Configuration of the STM32 GPIO and SPI interface£¬The connection ADS1256
+*	function: Configuration of the STM32 GPIO and SPI interfaceï¿½ï¿½The connection ADS1256
 *	parameter: NULL
 *	The return value: NULL
 *********************************************************************************************************
@@ -276,7 +276,7 @@ void bsp_InitADS1256(void)
 	DI_0();
 #endif
 
-//ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_1000SPS);	/* ÅäÖÃADC²ÎÊý£º ÔöÒæ1:1, Êý¾ÝÊä³öËÙÂÊ 1KHz */
+//ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_1000SPS);	/* ï¿½ï¿½ï¿½ï¿½ADCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1:1, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1KHz */
 }
 
 
@@ -286,14 +286,14 @@ void bsp_InitADS1256(void)
 *********************************************************************************************************
 *	name: ADS1256_StartScan
 *	function: Configuration DRDY PIN for external interrupt is triggered
-*	parameter: _ucDiffMode : 0  Single-ended input  8 channel£¬ 1 Differential input  4 channe
+*	parameter: _ucDiffMode : 0  Single-ended input  8 channelï¿½ï¿½ 1 Differential input  4 channe
 *	The return value: NULL
 *********************************************************************************************************
 */
 void ADS1256_StartScan(uint8_t _ucScanMode)
 {
 	g_tADS1256.ScanMode = _ucScanMode;
-	/* ¿ªÊ¼É¨ÃèÇ°, ÇåÁã½á¹û»º³åÇø */
+	/* ï¿½ï¿½Ê¼É¨ï¿½ï¿½Ç°, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	{
 		uint8_t i;
 
@@ -371,7 +371,7 @@ void ADS1256_CfgADC(ADS1256_GAIN_E _gain, ADS1256_DRATE_E _drate)
 
         //ADS1256_WriteReg(REG_STATUS, (0 << 3) | (1 << 2) | (1 << 1));
 
-		buf[1] = 0x08;	
+		buf[1] = 0x08;
 
 		/*	ADCON: A/D Control Register (Address 02h)
 			Bit 7 Reserved, always 0 (Read Only)
@@ -384,9 +384,9 @@ void ADS1256_CfgADC(ADS1256_GAIN_E _gain, ADS1256_DRATE_E _drate)
 
 			Bits 4-3 SDCS1, SCDS0: Sensor Detect Current Sources
 				00 = Sensor Detect OFF (default)
-				01 = Sensor Detect Current = 0.5 ¦Ì A
-				10 = Sensor Detect Current = 2 ¦Ì A
-				11 = Sensor Detect Current = 10¦Ì A
+				01 = Sensor Detect Current = 0.5 ï¿½ï¿½ A
+				10 = Sensor Detect Current = 2 ï¿½ï¿½ A
+				11 = Sensor Detect Current = 10ï¿½ï¿½ A
 				The Sensor Detect Current Sources can be activated to verify  the integrity of an external sensor supplying a signal to the
 				ADS1255/6. A shorted sensor produces a very small signal while an open-circuit sensor produces a very large signal.
 
@@ -402,7 +402,7 @@ void ADS1256_CfgADC(ADS1256_GAIN_E _gain, ADS1256_DRATE_E _drate)
 		*/
 		buf[2] = (0 << 5) | (0 << 3) | (_gain << 0);
 		//ADS1256_WriteReg(REG_ADCON, (0 << 5) | (0 << 2) | (GAIN_1 << 1));	/*choose 1: gain 1 ;input 5V/
-		buf[3] = s_tabDataRate[_drate];	// DRATE_10SPS;	
+		buf[3] = s_tabDataRate[_drate];	// DRATE_10SPS;
 
 		if (activeBoard == 0) CSA_0();
 		else CSB_0();	/* SPIÆ¬Ñ¡ = 0 */
@@ -558,7 +558,7 @@ static void ADS1256_SetChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when PSEL3 = 1, PSEL2, PSEL1, PSEL0 are ¡°don¡¯t care¡±)
+		1xxx = AINCOM (when PSEL3 = 1, PSEL2, PSEL1, PSEL0 are ï¿½ï¿½donï¿½ï¿½t careï¿½ï¿½)
 
 		NOTE: When using an ADS1255 make sure to only select the available inputs.
 
@@ -571,7 +571,7 @@ static void ADS1256_SetChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are ¡°don¡¯t care¡±)
+		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are ï¿½ï¿½donï¿½ï¿½t careï¿½ï¿½)
 	*/
 	if (_ch > 7)
 	{
@@ -600,7 +600,7 @@ static void ADS1256_SetDiffChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when PSEL3 = 1, PSEL2, PSEL1, PSEL0 are ¡°don¡¯t care¡±)
+		1xxx = AINCOM (when PSEL3 = 1, PSEL2, PSEL1, PSEL0 are ï¿½ï¿½donï¿½ï¿½t careï¿½ï¿½)
 
 		NOTE: When using an ADS1255 make sure to only select the available inputs.
 
@@ -613,23 +613,23 @@ static void ADS1256_SetDiffChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are ¡°don¡¯t care¡±)
+		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are ï¿½ï¿½donï¿½ï¿½t careï¿½ï¿½)
 	*/
 	if (_ch == 0)
 	{
-		ADS1256_WriteReg(REG_MUX, (0 << 4) | 1);	/* DiffChannal  AIN0£¬ AIN1 */
+		ADS1256_WriteReg(REG_MUX, (0 << 4) | 1);	/* DiffChannal  AIN0ï¿½ï¿½ AIN1 */
 	}
 	else if (_ch == 1)
 	{
-		ADS1256_WriteReg(REG_MUX, (2 << 4) | 3);	/*DiffChannal   AIN2£¬ AIN3 */
+		ADS1256_WriteReg(REG_MUX, (2 << 4) | 3);	/*DiffChannal   AIN2ï¿½ï¿½ AIN3 */
 	}
 	else if (_ch == 2)
 	{
-		ADS1256_WriteReg(REG_MUX, (4 << 4) | 5);	/*DiffChannal    AIN4£¬ AIN5 */
+		ADS1256_WriteReg(REG_MUX, (4 << 4) | 5);	/*DiffChannal    AIN4ï¿½ï¿½ AIN5 */
 	}
 	else if (_ch == 3)
 	{
-		ADS1256_WriteReg(REG_MUX, (6 << 4) | 7);	/*DiffChannal   AIN6£¬ AIN7 */
+		ADS1256_WriteReg(REG_MUX, (6 << 4) | 7);	/*DiffChannal   AIN6ï¿½ï¿½ AIN7 */
 	}
 }
 
@@ -654,7 +654,7 @@ static void ADS1256_WaitDRDY(void)
 	}
 	if (i >= 400000)
 	{
-		printf("ADS1256_WaitDRDY() Time Out ...\r\n");		
+		printf("ADS1256_WaitDRDY() Time Out ...\r\n");
 	}
 }
 
@@ -732,7 +732,7 @@ int32_t ADS1256_GetAdc(uint8_t _ch)
 */
 void ADS1256_ISR(void)
 {
-	if (g_tADS1256.ScanMode == 0)	/*  0  Single-ended input  8 channel£¬ 1 Differential input  4 channe */
+	if (g_tADS1256.ScanMode == 0)	/*  0  Single-ended input  8 channelï¿½ï¿½ 1 Differential input  4 channe */
 	{
 
 		ADS1256_SetChannal(g_tADS1256.Channel);	/*Switch channel mode */
@@ -746,11 +746,11 @@ void ADS1256_ISR(void)
 
 		if (g_tADS1256.Channel == 0)
 		{
-			g_tADS1256.AdcNow[7] = ADS1256_ReadData();	
+			g_tADS1256.AdcNow[7] = ADS1256_ReadData();
 		}
 		else
 		{
-			g_tADS1256.AdcNow[g_tADS1256.Channel-1] = ADS1256_ReadData();	
+			g_tADS1256.AdcNow[g_tADS1256.Channel-1] = ADS1256_ReadData();
 		}
 
 		if (++g_tADS1256.Channel >= 8)
@@ -760,7 +760,7 @@ void ADS1256_ISR(void)
 	}
 	else	/*DiffChannal*/
 	{
-		
+
 		ADS1256_SetDiffChannal(g_tADS1256.Channel);	/* change DiffChannal */
 		bsp_DelayUS(5);
 
@@ -772,11 +772,11 @@ void ADS1256_ISR(void)
 
 		if (g_tADS1256.Channel == 0)
 		{
-			g_tADS1256.AdcNow[3] = ADS1256_ReadData();	
+			g_tADS1256.AdcNow[3] = ADS1256_ReadData();
 		}
 		else
 		{
-			g_tADS1256.AdcNow[g_tADS1256.Channel-1] = ADS1256_ReadData();	
+			g_tADS1256.AdcNow[g_tADS1256.Channel-1] = ADS1256_ReadData();
 		}
 
 		if (++g_tADS1256.Channel >= 4)
@@ -789,7 +789,7 @@ void ADS1256_ISR(void)
 /*
 *********************************************************************************************************
 *	name: ADS1256_Scan
-*	function: 
+*	function:
 *	parameter:NULL
 *	The return value:  1
 *	Note from Andrew: This appears to be an inefficient way of checking if the next sample is ready. Next
@@ -810,9 +810,9 @@ uint8_t ADS1256_Scan(void)
 /*
 *********************************************************************************************************
 *	name: Write_DAC8552
-*	function:  DAC send data 
-*	parameter: channel : output channel number 
-*			   data : output DAC value 
+*	function:  DAC send data
+*	parameter: channel : output channel number
+*			   data : output DAC value
 *	The return value:  NULL
 *********************************************************************************************************
 */
@@ -826,7 +826,7 @@ void Write_DAC8552(uint8_t channel, uint16_t Data)
 	  else CSB_0();
       bcm2835_spi_transfer(channel);
       bcm2835_spi_transfer((Data>>8));
-      bcm2835_spi_transfer((Data&0xff));  
+      bcm2835_spi_transfer((Data&0xff));
 	  if (activeBoard == 0) CSA_1();
 	  else CSB_1();
 }
@@ -835,7 +835,7 @@ void Write_DAC8552(uint8_t channel, uint16_t Data)
 *	name: Voltage_Convert
 *	function:  Voltage value conversion function
 *	parameter: Vref : The reference voltage 3.3V or 5V
-*			   voltage : output DAC value 
+*			   voltage : output DAC value
 *	The return value:  NULL
 *********************************************************************************************************
 */
@@ -843,19 +843,19 @@ uint16_t Voltage_Convert(float Vref, float voltage)
 {
 	uint16_t _D_;
 	_D_ = (uint16_t)(65536 * voltage / Vref);
-    
+
 	return _D_;
 }
 
 
 /*
-********************************************************************************************************* 
+*********************************************************************************************************
 * 	name:	Wall clock timer
 * 	purpose: get current wall time
 * 	Author : Mysticial from https://stackoverflow.com/questions/17432502/how-can-i-measure-cpu-time-and-wall-clock-time-on-both-linux-windows
-* 	
+*
 * *******************************************************************************************************
-*/ 
+*/
 double get_wall_time()
 {
     struct timeval wallTime;
@@ -869,13 +869,13 @@ double get_wall_time()
 
 
 /*
-********************************************************************************************************* 
+*********************************************************************************************************
 * 	name:	Initialize timer
 * 	purpose: Start wall clock timer
 * 	Author : Andrew Gross
-* 	
+*
 * *******************************************************************************************************
-*/ 
+*/
 float initializeTimer()
 {
         struct timespec startTime;
@@ -886,13 +886,13 @@ float initializeTimer()
 }
 
 /*
-********************************************************************************************************* 
+*********************************************************************************************************
 * 	name:	Current time
 * 	purpose: Get ellapsed time from start time
 * 	Author : Andrew Gross
-* 	
+*
 * *******************************************************************************************************
-*/ 
+*/
 float getCurrentTime(float startTime)
 {
         struct timespec currentTime;
@@ -903,18 +903,18 @@ float getCurrentTime(float startTime)
 }
 
 /*
-********************************************************************************************************* 
+*********************************************************************************************************
 * 	name:	Interrupt handlers
 * 	purpose: to take in the interrupt trigger and publish the interrupt event
 * 	Author : Brad Eisenschenk
-* 	
+*
 * *******************************************************************************************************
-*/ 
+*/
 	static volatile int intrflag ;
 	static volatile int lastintrflag;
 
 
-	void InterruptPin0 (void) { 
+	void InterruptPin0 (void) {
 		if(DRDY_IS_LOW())
 		{ intrflag= 1;
 			ADS1256_ISR();
@@ -926,14 +926,14 @@ float getCurrentTime(float startTime)
 	//void InterruptPin5 (void) { ++globalCounter [5]; }
 	//void InterruptPin6 (void) { ++globalCounter [6]; }
 	//void InterruptPin7 (void) { ++globalCounter [7]; }
- 
- 
+
+
 /*
 * *******************************************************************************************************
-* 
+*
 *********************************************************************************************************
 *	name: main
-*	function:  
+*	function:
 *	parameter: NULL
 *	The return value:  NULL
 *********************************************************************************************************
@@ -948,8 +948,8 @@ float getCurrentTime(float startTime)
 	float tempK;
 	float tempC;
 	float tempF;
-	
-	
+
+
 
 int  main()
 {
@@ -966,8 +966,8 @@ int  main()
   	int32_t adc[8];
 	int32_t volt[8];
 	uint8_t ch_num;
-	uint8_t buf[3];	
-	
+	uint8_t buf[3];
+
 	if (!bcm2835_init())
         	return 1;
 	bcm2835_spi_begin();
@@ -981,7 +981,7 @@ int  main()
     	bcm2835_gpio_fsel(SPICS_A, BCM2835_GPIO_FSEL_OUTP);				//Set SPICS_A as an output pin
     	bcm2835_gpio_write(SPICS_A, HIGH);								//Set SPICS_A to High
     	bcm2835_gpio_fsel(DRDY, BCM2835_GPIO_FSEL_INPT);				//Set DRDY as an Input
-    	bcm2835_gpio_set_pud(DRDY, BCM2835_GPIO_PUD_UP);    			//Set DRDY to use internal pull up resistor	
+    	bcm2835_gpio_set_pud(DRDY, BCM2835_GPIO_PUD_UP);    			//Set DRDY to use internal pull up resistor
     	activeBoard = 0;
 		//ADS1256_WriteReg(REG_MUX,0x01);
     	//ADS1256_WriteReg(REG_ADCON,0x20);
@@ -995,17 +995,17 @@ int  main()
 	{
 		printf("Ok, ASD1256 Chip ID = 0x%d\r\n", (int)id);
 	}
-	
+
   	// ADS1256_CfgADC(ADS1256_GAIN_4, ADS1256_15SPS);
   	ADS1256_CfgADC(ADS1256_GAIN_2, ADS1256_1000SPS);
    	ADS1256_StartScan(0);
-  	
+
   	//
 		//bcm2835_gpio_write(SPICS_A, LOW);								//Set SPICS_A to Low
-    	bcm2835_gpio_fsel(SPICS_B, BCM2835_GPIO_FSEL_OUTP);				//Set SPICS_B as an output pin		
+    	bcm2835_gpio_fsel(SPICS_B, BCM2835_GPIO_FSEL_OUTP);				//Set SPICS_B as an output pin
   	    bcm2835_gpio_write(SPICS_B, HIGH);								//Set SPICS_B to High
     	//bcm2835_gpio_fsel(DRDY, BCM2835_GPIO_FSEL_INPT);				//Set DRDY as an Input
-    	//bcm2835_gpio_set_pud(DRDY, BCM2835_GPIO_PUD_UP);    			//Set DRDY to use internal pull up resistor	
+    	//bcm2835_gpio_set_pud(DRDY, BCM2835_GPIO_PUD_UP);    			//Set DRDY to use internal pull up resistor
     	//ADS1256_WriteReg(REG_MUX,0x01);
     	//ADS1256_WriteReg(REG_ADCON,0x20);
    	// ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_15SPS);
@@ -1020,34 +1020,34 @@ int  main()
 	{
 		printf("Ok, ASD1256 Chip ID = 0x%d\r\n", (int)id1);
 	}
-	
+
   	// ADS1256_CfgADC(ADS1256_GAIN_4, ADS1256_15SPS);
   	ADS1256_CfgADC(ADS1256_GAIN_2, ADS1256_1000SPS);
     ADS1256_StartScan(0);
-    
-    
+
+
    		//bcm2835_gpio_write(SPICS_B, LOW);								//Set SPICS_B to Low
   	    //bcm2835_gpio_write(SPICS_A, HIGH);								//Set SPICS_A to High
 
   	//
-      	
 
-		
-		ch_num = 8;	
+
+
+		ch_num = 8;
 		int c=0;
-	
+
 		wiringPiISR (0, INT_EDGE_FALLING, &InterruptPin0);		//pin 0 (in wiringPi) is the DRDY pin, watching here for it to go "Active Low" to signal data is ready to be read
 
 		FILE* dataLog = fopen("DualBoardTesting.csv", "w");
-		
+
 		startTime = initializeTimer();
 		activeBoard = 0;
 		bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
 		while(1)
 		{
 			if (intrflag == 1)
-			{	
-				adc[c]=ADS1256_GetAdc(c);			//pull data from adc in 		
+			{
+				adc[c]=ADS1256_GetAdc(c);			//pull data from adc in
 				volt[c] = (adc[c] * 100) / 167;
 				if (activeBoard == 0)
 				{
@@ -1060,7 +1060,7 @@ int  main()
 						bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
 						c = 0;
 					}
-					else 
+					else
 					{
 						c += 1;
 					}
@@ -1076,12 +1076,12 @@ int  main()
 						bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
 						c = 0;
 					}
-					else 
+					else
 					{
 						c += 1;
 					}
 				}
-				lastintrflag=1;	
+				lastintrflag=1;
 				// printf("\nADC Pin: %d , \tadc val: %d \tvolt : %f \n", c, adc[c], floatVoltage[c]);
 				if( c == 0 && activeBoard == 0)
 				{
@@ -1093,13 +1093,13 @@ int  main()
 				//else
 				//{
 				//	c += 1;
-				//}						
-			} 
+				//}
+			}
 			if (intrflag != 0 && lastintrflag != 0)
 			{
 				intrflag=0;
 			}
-							
+
 			else if( ( intrflag == 0 && lastintrflag == 1 ) || ( intrflag == 0 && lastintrflag == 0 ) )
 			{
 				// printf ("Waiting ... ") ; fflush (stdout) ;
