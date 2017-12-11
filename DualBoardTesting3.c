@@ -4,7 +4,8 @@
  *	the port to be looped back to itself
  *
  *
- * To compile: sudo gcc adconTesting2.c -o adcTest3 -lbcm2835 -lwiringPi -lm -g
+ * To compile: sudo gcc DualBoardTesting3.c -o dualBoardTesting -lwiringPi -lbcm2835 -lm -W -g
+
  * /
  
 /*
@@ -74,8 +75,8 @@ RPI_V2_GPIO_P1_13->RPI_GPIO_P1_13
 
 //#define CSA_0() bcm2835_spi_chipSelect(BCM2835_SPI_CS0)
 //#define CSB_0() bcm2835_spi_chipSelect(BCM2835_SPI_CS1)
-//#define CSA_1() bcm2835_spi_chipSelect(BCM2835_SPI_CS0)
-//#define CSB_1() bcm2835_spi_chipSelect(BCM2835_SPI_CS1)
+//#define CSA_1() bcm2835_spi_chipSelect(BCM2835_SPI_CS1)
+//#define CSB_1() bcm2835_spi_chipSelect(BCM2835_SPI_CS0)
 
 #define DRDY_IS_LOW()	((bcm2835_gpio_lev(DRDY)==0))
 
