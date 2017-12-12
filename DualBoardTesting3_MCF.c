@@ -4,7 +4,8 @@
  *	the port to be looped back to itself
  *
  *
- * To compile: sudo gcc adconTesting2.c -o adcTest3 -lbcm2835 -lwiringPi -lm -g
+ * To compile: sudo gcc DualBoardTesting3_MCF.c -o adcTest3_MCF -lbcm2835 -lwiringPi -lm -g
+ * 
  * /
 
 /*
