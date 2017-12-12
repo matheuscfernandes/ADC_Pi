@@ -1037,7 +1037,7 @@ int  main()
 
 		wiringPiISR (0, INT_EDGE_FALLING, &InterruptPin0);		//pin 0 (in wiringPi) is the DRDY pin, watching here for it to go "Active Low" to signal data is ready to be read
 
-		FILE* dataLog = fopen("DualBoardTesting.csv", "w");
+		FILE* dataLog = fopen("DualBoardTesting_MCF.csv", "w");
 
 		startTime = initializeTimer();
 		activeBoard = 0;
