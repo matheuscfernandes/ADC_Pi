@@ -1049,7 +1049,7 @@ int  main()
 			{
 				adc[c]=ADS1256_GetAdc(c);			//pull data from adc in
 				volt[c] = (adc[c] * 100) / 167;
-				printf("%f\n",volt[c]);
+				// printf("%f\n",volt[c]);
 				if (activeBoard == 0)
 				{
 					floatVoltage[c] = (float)volt[c]/1000000;
