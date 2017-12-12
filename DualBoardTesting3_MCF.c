@@ -1086,7 +1086,7 @@ int  main()
 				{
 					//c = 0;
 					currentTime = getCurrentTime(startTime);
-					fprintf(dataLog, "Time:%f, %f, %f, %f, %f, %f\n", currentTime, floatVoltage[0], floatVoltage[1], floatVoltage[2], floatVoltage1[0], floatVoltage1[1]);
+					fprintf(dataLog, "Time:%f, %f, %f, %f, %f, %f, %f\n", currentTime, floatVoltage[0], floatVoltage[1], floatVoltage[2], floatVoltage1[0], floatVoltage1[1], floatVoltage1[2]);
 					fflush(dataLog);
 				}
 				//else
