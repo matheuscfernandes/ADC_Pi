@@ -1041,7 +1041,7 @@ int  main()
 
 		startTime = initializeTimer();
 		activeBoard = 0;
-		bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
+		bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
 		while(1)
 		{
 			if (intrflag == 1)
