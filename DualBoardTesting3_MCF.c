@@ -5,7 +5,7 @@
  *
  *
  * To compile: sudo gcc DualBoardTesting3_MCF.c -o adcTest3_MCF -lbcm2835 -lwiringPi -lm -g
- * 
+ *
  * /
 
 /*
@@ -1042,13 +1042,14 @@ int  main()
 
 		startTime = initializeTimer();
 		activeBoard = 0;
-		bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
+		bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
 		while(1)
 		{
 			if (intrflag == 1)
 			{
 				adc[c]=ADS1256_GetAdc(c);			//pull data from adc in
 				volt[c] = (adc[c] * 100) / 167;
+				fprintf("%f\n",volt[c]);
 				if (activeBoard == 0)
 				{
 					floatVoltage[c] = (float)volt[c]/1000000;
